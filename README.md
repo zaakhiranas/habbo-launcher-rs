@@ -3,6 +3,22 @@
 A Rust rewrite of [LilithRainbows/HabboCustomLauncher](https://github.com/LilithRainbows/HabboCustomLauncher)
 (VB.NET + Avalonia, ~3k lines). Same behaviour, one native binary, no .NET runtime.
 
+## Download
+
+Grab the binary for your OS from the [**latest release**](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest):
+
+| OS | File | Size |
+|---|---|---|
+| Windows 10/11 x64 | [`habbo-launcher-windows-x64.exe`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-windows-x64.exe) | 6.6 MB |
+| Linux x64 (glibc) | [`habbo-launcher-linux-x64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-linux-x64) | 7.8 MB |
+| macOS Apple Silicon | [`habbo-launcher-macos-arm64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-macos-arm64) | 5.6 MB |
+| macOS Intel | [`habbo-launcher-macos-x64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-macos-x64) | 5.8 MB |
+
+Every asset has a `.sha256` next to it. Windows: double-click the exe. Linux/macOS:
+`chmod +x <file>` then run it.
+
+Build status: [![build](https://github.com/zaakhiranas/habbo-launcher-rs/actions/workflows/build.yml/badge.svg)](https://github.com/zaakhiranas/habbo-launcher-rs/actions/workflows/build.yml)
+
 **Credits:** the unofficial client (**AIR+**) is
 [**LilithRainbows/HabboAirPlus**](https://github.com/LilithRainbows/HabboAirPlus) by
 [LilithRainbows](https://github.com/LilithRainbows) — not our work. This launcher only
