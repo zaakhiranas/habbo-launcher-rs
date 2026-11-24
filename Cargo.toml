@@ -1,0 +1,26 @@
+[package]
+name = "habbo-launcher-rs"
+version = "1.0.0"
+edition = "2021"
+description = "Alternative Habbo launcher (Rust port of HabboCustomLauncher)"
+license = "MIT"
+
+[dependencies]
+eframe = { version = "0.32", default-features = false, features = ["default_fonts", "glow", "wayland", "x11"] }
+egui = "0.32"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls", "gzip"] }
+zip = { version = "2", default-features = false, features = ["deflate", "bzip2", "zstd"] }
+serde_json = "1"
+arboard = "3"
+dirs = "6"
+xxhash-rust = { version = "0.8", features = ["xxh3"] }
+webbrowser = "1"
+sysinfo = "0.33"
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.55"
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
