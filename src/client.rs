@@ -787,12 +787,11 @@ mod tests {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, windows))]
 mod kill_tests {
     use super::*;
 
     #[test]
-    #[cfg(windows)]
     fn kills_only_the_given_executable_path() {
         let dir = std::env::temp_dir().join("hcl-rs-killtest");
         let _ = fs::create_dir_all(&dir);
