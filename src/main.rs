@@ -568,7 +568,7 @@ impl eframe::App for Launcher {
             if button(ui, "Launch official client (AIR)", 40.0) {
                 self.start_flow(UpdateSource::AirOfficial);
             }
-            if button(ui, "Launch AIR+ (unofficial client)", 40.0) {
+            if button(ui, "Launch AIR+ (unofficial client) · Lilith release", 40.0) {
                 self.start_flow(UpdateSource::AirPlus);
             }
             if button(ui, "Start another instance", 26.0) {

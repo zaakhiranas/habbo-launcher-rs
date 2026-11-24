@@ -3,6 +3,12 @@
 A Rust rewrite of [LilithRainbows/HabboCustomLauncher](https://github.com/LilithRainbows/HabboCustomLauncher)
 (VB.NET + Avalonia, ~3k lines). Same behaviour, one native binary, no .NET runtime.
 
+**Credits:** the unofficial client (**AIR+**) is
+[**LilithRainbows/HabboAirPlus**](https://github.com/LilithRainbows/HabboAirPlus) by
+[LilithRainbows](https://github.com/LilithRainbows) — not our work. This launcher only
+downloads, patches and starts it. The platform patch zips and asset layout also come from the
+same author's `HabboCustomLauncher` repo.
+
 ## What it does
 
 - **Login codes** — auto-detected from the clipboard (the code the site's **COPY** button puts
@@ -11,10 +17,13 @@ A Rust rewrite of [LilithRainbows/HabboCustomLauncher](https://github.com/Lilith
   already on the clipboard — tickets are single-use, so a leftover code only ever fails — and
   waits for the next fresh copy. A ticket handed to a client is remembered and never reused.
 - **Both clients, one window** — "Launch official client (AIR)" and
-  "Launch AIR+ (unofficial client)" each install/update and start that build explicitly,
-  independent of the saved default source.
+  "Launch AIR+ (unofficial client) · Lilith release" each install/update and start that build
+  explicitly, independent of the saved default source.
 - **Client update** — resolves the newest classic (AIR) client from the selected source:
-  - `AIR+` (unofficial HabboAirPlus SWF, version = remote `x-ms-creation-time` epoch)
+  - `AIR+` — the unofficial **HabboAirPlus** SWF by LilithRainbows, pulled from
+    `https://github.com/LilithRainbows/HabboAirPlus/releases/download/latest/HabboAir.swf`
+    (version = remote `x-ms-creation-time` epoch; downloaded only when newer than the local
+    `<epoch>` folder)
   - `AIR` (official, `https://<hotel>/gamedata/clienturls`)
 - **Download + extract** — streamed download with live progress, zip extraction with the
   original skip list (`Adobe AIR`, `META-INF/signatures.xml`, `META-INF/AIR/hash`, `Habbo.exe`).
@@ -26,12 +35,26 @@ A Rust rewrite of [LilithRainbows/HabboCustomLauncher](https://github.com/Lilith
   and Linux executable paths handled.
 - **Multi-instance**, **cleanup of old clients** (keeps the 3 newest), **`habbo://` protocol
   registration** (HKCU on Windows, `.desktop` + `xdg-mime` on Linux).
-- **Auto-launch from the website** — clicking "Launch and log in" on habbo.com opens
-  `habbo://hab?server=<id>&token=<ticket>`. When the app is started with that argument it skips
-  the UI wait: update check → launch → window closes. `habbo` is the same scheme the official
-  Electron launcher registers, so whichever app starts last owns the link.
+- **Protocol links stop at the door** — clicking "Launch and log in" on habbo.com opens
+  `habbo://hab?server=<id>&token=<ticket>`. The launcher adopts the code, shows *"Login code
+  from Habbo — choose a client below"* and **waits**. It never launches on its own: the ticket is
+  single-use, so the pick between official and AIR+ has to be yours. `habbo` is the same scheme
+  the official Electron launcher registers, so whichever app starts last owns the link.
 - **Settings** in `%APPDATA%\Habbo Launcher\downloads\GlobalSettings.xml` — same file and same
   `<Item Name Value />` schema as the original, so both launchers share config.
+
+## Run
+
+Single self-contained binary — no installer, no .NET, no DLLs beside it, no admin rights.
+
+```
+HabboCustomLauncher.exe        # ~6.5 MB, Windows x64
+```
+
+Copy it anywhere and double-click. First launch downloads the client (~50 MB) and the patch zip
+(~8 MB) into `%APPDATA%\Habbo Launcher\`. Keep it at the path the `habbo://` registry entry
+points at (`%LOCALAPPDATA%\Programs\habbo-custom-launcher\`) or website "Launch and log in" links
+will open nothing.
 
 ## Build
 
@@ -71,5 +94,8 @@ It looks in this order:
 
 ## License
 
-Same as upstream (MIT-style). This port contains no upstream binaries; patch assets are
-downloaded at runtime from the upstream repository.
+This port is MIT. **It contains no upstream binaries and redistributes none of LilithRainbows'
+work** — the AIR+ client (from [HabboAirPlus](https://github.com/LilithRainbows/HabboAirPlus)) and
+the platform patch zips are downloaded at runtime, directly from that author's repositories, and
+remain under whatever license their author applies. Credit for the unofficial client and the
+patching method belongs to LilithRainbows.

@@ -34,7 +34,7 @@ impl UpdateSource {
     }
     pub fn label(self) -> &'static str {
         match self {
-            UpdateSource::AirPlus => "AIR+ (unofficial client)",
+            UpdateSource::AirPlus => "AIR+ (unofficial client) · Lilith release",
             UpdateSource::AirOfficial => "AIR (official hotel client)",
         }
     }
