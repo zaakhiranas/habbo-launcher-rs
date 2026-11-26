@@ -15,7 +15,7 @@ Grab the binary for your OS from the [**latest release**](https://github.com/zaa
 | macOS Apple Silicon | [`habbo-launcher-macos-arm64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-macos-arm64) | 5.6 MB |
 | macOS Intel | [`habbo-launcher-macos-x64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-macos-x64) | 5.8 MB |
 
-Every asset has a `.sha256` next to it.
+GitHub shows each file's SHA-256 in the asset list — click the digest to copy it.
 
 - **Windows** — double-click the exe.
 - **Linux (Mint/Ubuntu/Debian)** — double-click the `.deb`. No terminal, no `chmod`: it
