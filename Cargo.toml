@@ -1,6 +1,6 @@
 [package]
 name = "habbo-launcher-rs"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 description = "Alternative Habbo launcher (Rust port of HabboCustomLauncher)"
 license = "MIT"

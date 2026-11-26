@@ -10,12 +10,20 @@ Grab the binary for your OS from the [**latest release**](https://github.com/zaa
 | OS | File | Size |
 |---|---|---|
 | Windows 10/11 x64 | [`habbo-launcher-windows-x64.exe`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-windows-x64.exe) | 6.6 MB |
-| Linux x64 (glibc) | [`habbo-launcher-linux-x64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-linux-x64) | 7.8 MB |
+| **Linux x64 — .deb (recommended)** | [`habbo-launcher_1.0.1_amd64.deb`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher_1.0.1_amd64.deb) | 3 MB |
+| Linux x64 (portable binary) | [`habbo-launcher-linux-x64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-linux-x64) | 7.8 MB |
 | macOS Apple Silicon | [`habbo-launcher-macos-arm64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-macos-arm64) | 5.6 MB |
 | macOS Intel | [`habbo-launcher-macos-x64`](https://github.com/zaakhiranas/habbo-launcher-rs/releases/latest/download/habbo-launcher-macos-x64) | 5.8 MB |
 
-Every asset has a `.sha256` next to it. Windows: double-click the exe. Linux/macOS:
-`chmod +x <file>` then run it.
+Every asset has a `.sha256` next to it.
+
+- **Windows** — double-click the exe.
+- **Linux (Mint/Ubuntu/Debian)** — double-click the `.deb`. No terminal, no `chmod`: it
+  installs to `/usr/bin/habbo-launcher`, adds a game-menu entry and registers the
+  `habbo://` handler. Needs glibc 2.35+ (Mint 21/22, Ubuntu 22.04+); older distros get a
+  dependency error instead of a mystery crash.
+- **macOS / portable Linux binary** — `chmod +x <file>`, then run it. A bare binary
+  downloaded through a browser has no execute bit, so double-clicking it does nothing.
 
 Build status: [![build](https://github.com/zaakhiranas/habbo-launcher-rs/actions/workflows/build.yml/badge.svg)](https://github.com/zaakhiranas/habbo-launcher-rs/actions/workflows/build.yml)
 
