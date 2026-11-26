@@ -27,6 +27,71 @@ GitHub shows each file's SHA-256 in the asset list — click the digest to copy 
 
 Build status: [![build](https://github.com/zaakhiranas/habbo-launcher-rs/actions/workflows/build.yml/badge.svg)](https://github.com/zaakhiranas/habbo-launcher-rs/actions/workflows/build.yml)
 
+## Linux portable binary — how to make it run
+
+`habbo-launcher-linux-x64` is the launcher without the `.deb` wrapper, for distros that
+don't use dpkg, or when you can't (or don't want to) install anything.
+
+**A file downloaded through a browser is never executable.** That is a security feature of
+every desktop Linux, not a broken download. Double-clicking it does nothing, and running it
+gives `Permission denied`. You have to mark it executable once — after that it runs normally,
+and the mark survives reboots and updates.
+
+### Option A — file manager (no terminal)
+
+1. Download `habbo-launcher-linux-x64` and leave it in `~/Downloads`.
+2. Right-click the file → **Properties** → **Permissions** tab.
+3. Tick **Allow executing file as program** → close.
+4. Double-click it. On Mint/Cinnamon, if it opens in a text editor instead, right-click →
+   **Open With** → *Run* / *Execute* (`x-terminal-emulator` or "Run Software").
+
+GNOME Files (Ubuntu) hides the checkbox: **Properties → Permissions → Allow Executing File
+as Program** only appears when the file is in your home folder, and GNOME 43+ needs
+*GNOME extensions* off; the terminal route below is faster there.
+
+### Option B — terminal (three lines)
+
+```bash
+cd ~/Downloads
+chmod +x habbo-launcher-linux-x64
+./habbo-launcher-linux-x64
+```
+
+What each line does: `cd` moves into the folder you saved the file in, `chmod +x` adds the
+execute bit, `./` runs the file in the current folder (`habbo-launcher-linux-x64` alone would
+not be found, because your current folder is not on `PATH`).
+
+Check it worked — the permissions column should show `x`:
+
+```bash
+ls -l habbo-launcher-linux-x64
+# -rwxr-xr-x 1 you you 7835808 ... habbo-launcher-linux-x64
+#  ^^^ x here = executable
+```
+
+### Keep it on your PATH (once, then `habbo-launcher` works from anywhere)
+
+```bash
+mkdir -p ~/.local/bin
+mv ~/Downloads/habbo-launcher-linux-x64 ~/.local/bin/habbo-launcher
+chmod +x ~/.local/bin/habbo-launcher
+```
+
+`~/.local/bin` is already on `PATH` on Mint and Ubuntu, so `habbo-launcher` now starts it
+from any folder. If you also want a menu entry and `habbo://` "Launch and log in" links to
+work, just launch it once — the first run registers the protocol handler for the current
+user.
+
+### If it still won't start
+
+| Message | Cause | Fix |
+|---|---|---|
+| `Permission denied` | execute bit missing | `chmod +x <file>` again (a fresh download resets it) |
+| `version 'GLIBC_2.3x' not found` | distro older than glibc 2.35 (e.g. Mint 20, Ubuntu 20.04) | use the `.deb` on a 22.04+ system, or build from source |
+| `cannot execute binary file: Exec format error` | wrong architecture (ARM, 32-bit) | x64 only; build from source |
+| window flashes and exits | no GPU/GL driver | `LIBGL_ALWAYS_SOFTWARE=1 ./habbo-launcher-linux-x64` |
+
+
 **Credits:** the unofficial client (**AIR+**) is
 [**LilithRainbows/HabboAirPlus**](https://github.com/LilithRainbows/HabboAirPlus) by
 [LilithRainbows](https://github.com/LilithRainbows) — not our work. This launcher only
